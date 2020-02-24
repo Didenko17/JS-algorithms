@@ -1,0 +1,52 @@
+/*
+  Given a binary tree
+
+  struct Node {
+    int val;
+    Node *left;
+    Node *right;
+    Node *next;
+  }
+  Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.
+
+  Initially, all next pointers are set to NULL.
+*/
+/**
+ * // Definition for a Node.
+ * function Node(val, left, right, next) {
+ *    this.val = val === undefined ? null : val;
+ *    this.left = left === undefined ? null : left;
+ *    this.right = right === undefined ? null : right;
+ *    this.next = next === undefined ? null : next;
+ * };
+ */
+/**
+ * @param {Node} root
+ * @return {Node}
+ */
+var connect = function(root) {
+    if(!root){
+        return root;
+    }
+    const queue=[[root]];
+    while(queue.length>0){
+        const cur=queue.shift();
+        const queueTemp=[];
+        for(let i=0;i<cur.length;i++){
+            if(cur[i].left){
+                queueTemp.push(cur[i].left);
+            }
+            if(cur[i].right){
+                queueTemp.push(cur[i].right);
+            }
+            if(i==cur.length-1){
+                cur[i].next==null;
+            }else{
+                cur[i].next=cur[i+1];
+            }
+        }
+        if(queueTemp.length>0)
+            queue.push(queueTemp);
+    }
+    return root;
+};
